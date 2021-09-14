@@ -5,6 +5,7 @@ import 'package:flutter_appchat318/unti/validate.dart';
 import 'package:flutter_appchat318/views/contacts_page.dart';
 import 'package:flutter_appchat318/views/signUp_page.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key key}) : super(key: key);
@@ -29,38 +30,37 @@ class _SignInPageState extends State<SignInPage> {
           initialData: null,
         ),
       ],
-      child: Form(
-        key: formKey,
-        child: SafeArea(
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            backgroundColor: Colors.blue.shade600,
-            body: SingleChildScrollView(
-              reverse: false,
-              child: Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                      Color.fromRGBO(116, 176, 243, 1),
-                      Color.fromRGBO(51, 132, 224, 1),
-                    ])),
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: [
-                    label(),
-                    emailInput(),
-                    passInput(),
-                    forgotText(),
-                    checkbox(),
-                    btnLogin(),
-                    orText(),
-                    // icon(),
-                    signUpText(),
-                  ],
-                ),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        // backgroundColor: Colors.blue.shade600,
+        body: SafeArea(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromRGBO(116, 176, 243, 1),
+                  Color.fromRGBO(51, 132, 224, 1),
+                ],
+              ),
+            ),
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  label(),
+                  emailInput(),
+                  passInput(),
+                  forgotText(),
+                  checkbox(),
+                  btnLogin(),
+                  orText(),
+                  icon(),
+                  signUpText(),
+                ],
               ),
             ),
           ),
@@ -87,66 +87,63 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Widget checkbox() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 8, 16, 0),
-      child: Row(
-        children: [
-          Theme(
-            data: Theme.of(context).copyWith(
-              unselectedWidgetColor: Colors.white,
-            ),
-            child: Checkbox(
-              checkColor: Colors.black,
-              activeColor: Colors.white,
-              hoverColor: Colors.white,
-              value: false,
-              onChanged: (newValue) {
-                //  checkedValue = newValue;
-              },
-            ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Theme(
+          data: Theme.of(context).copyWith(
+            unselectedWidgetColor: Colors.white,
           ),
-          baseText(text: "Remember me", sizeText: 20)
-        ],
-      ),
+          child: Checkbox(
+            checkColor: Colors.black,
+            activeColor: Colors.white,
+            hoverColor: Colors.white,
+            value: false,
+            onChanged: (newValue) {
+              //  checkedValue = newValue;
+            },
+          ),
+        ),
+        baseText(text: "Remember me", sizeText: 20.sp)
+      ],
     );
   }
 
   Widget label() {
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: EdgeInsets.only(top: 8.h),
       child: baseText(
         text: "Sign In",
-        sizeText: 28,
+        sizeText: 28.sp,
         fontWeight: FontWeight.bold,
       ),
     );
   }
 
   Widget signUpText() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 70),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          baseText(text: "Don't have an Ancount ", sizeText: 20),
-          baseText(
-              text: "Sign Up",
-              sizeText: 20,
-              fontWeight: FontWeight.bold,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignUpPage()),
-                );
-              })
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        baseText(text: "Don't have an Ancount ", sizeText: 20.sp),
+        baseText(
+            text: "Sign Up",
+            sizeText: 20.sp,
+            fontWeight: FontWeight.bold,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SignUpPage()),
+              );
+            })
+      ],
     );
   }
 
   Widget btnLogin() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
+      padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
+      // padding: EdgeInsets.all(10.w),
+
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
@@ -181,7 +178,7 @@ class _SignInPageState extends State<SignInPage> {
         disabledColor: Colors.grey,
         disabledTextColor: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.all(14.0),
+          padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
           child: baseText(
             text: "LOGIN",
             fontWeight: FontWeight.bold,
@@ -195,41 +192,38 @@ class _SignInPageState extends State<SignInPage> {
 
   Widget forgotText() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 8, 18, 0),
+      padding: EdgeInsets.only(right: 10.w),
       child: Align(
         alignment: Alignment.centerRight,
         child: baseText(
           text: "Forgot Password",
-          sizeText: 18,
+          sizeText: 18.sp,
         ),
       ),
     );
   }
 
   Widget orText() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: baseText(
-              text: "- OR - ",
-              sizeText: 20,
-            ),
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(ScreenUtil().setHeight(8)),
+          child: baseText(
+            text: "- OR - ",
+            sizeText: 20.sp,
           ),
-          baseText(
-            text: "Sign in with",
-            sizeText: 18,
-          ),
-        ],
-      ),
+        ),
+        baseText(
+          text: "Sign in with",
+          sizeText: 18.sp,
+        ),
+      ],
     );
   }
 
   Widget icon() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(32, 0, 32, 26),
+      padding: EdgeInsets.all(ScreenUtil().setHeight(8)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -248,7 +242,6 @@ class _SignInPageState extends State<SignInPage> {
         text: "",
         icon: Icon(Icons.vpn_key),
         validator: (val) {
-          print(val);
           return validate.passwordValidate(val);
         });
   }
@@ -276,23 +269,17 @@ class _SignInPageState extends State<SignInPage> {
   Widget baseIcon({
     String assetImage,
   }) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-      child: Container(
-        width: 55,
-        height: 55,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Image(
-            image: AssetImage(assetImage),
-            width: 40,
-            height: 40,
-          ),
-        ),
+    return Container(
+      margin: EdgeInsets.all(ScreenUtil().setHeight(8)),
+      padding: EdgeInsets.all(ScreenUtil().setHeight(8)),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white,
+      ),
+      child: Image(
+        image: AssetImage(assetImage),
+        width: ScreenUtil().setWidth(35),
+        height: ScreenUtil().setHeight(35),
       ),
     );
   }
@@ -309,14 +296,14 @@ class _SignInPageState extends State<SignInPage> {
     //  void Function() onTap,
   }) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
+      padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 8),
+            padding: EdgeInsets.only(bottom: 8.h),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: baseText(text: labelText, sizeText: 18),
+              child: baseText(text: labelText, sizeText: 18.sp),
             ),
           ),
           TextFormField(
@@ -327,7 +314,7 @@ class _SignInPageState extends State<SignInPage> {
             validator: validator,
             decoration: InputDecoration(
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(10),
               ),
               filled: true,
               fillColor: Colors.blue.shade300,

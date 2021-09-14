@@ -6,6 +6,7 @@ import 'package:flutter_appchat318/providers/chat.dart';
 import 'package:flutter_appchat318/views/signIn_page.dart';
 import 'package:flutter_appchat318/views/signUp_page.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -23,20 +24,28 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => Chat()),
-        Provider<AuthService>(
-            create: (_) => AuthService(FirebaseAuth.instance)),
-        StreamProvider(
-          create: (context) => context.read<AuthService>().authStateChanges,
-          initialData: null,
-        ),
-      ],
-      child: MaterialApp(
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SignInPage(),
+        home: SignUpPage(),
       ),
     );
+
+    //   return MultiProvider(
+    //     providers: [
+    //       ChangeNotifierProvider(create: (_) => Chat()),
+    //       Provider<AuthService>(
+    //           create: (_) => AuthService(FirebaseAuth.instance)),
+    //       StreamProvider(
+    //         create: (context) => context.read<AuthService>().authStateChanges,
+    //         initialData: null,
+    //       ),
+    //     ],
+    //     child: MaterialApp(
+    //       debugShowCheckedModeBanner: false,
+    //       home: SignUpPage(),
+    //     ),
+    //   );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_appchat318/providers/auth_service.dart';
 import 'package:flutter_appchat318/unti/validate.dart';
 import 'package:flutter_appchat318/views/signIn_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -30,37 +31,31 @@ class _SignUpPageState extends State<SignUpPage> {
           initialData: null,
         ),
       ],
-      child: Form(
-        key: formKey,
-        child: SafeArea(
-          child: Scaffold(
-            backgroundColor: Colors.blue.shade600,
-            body: SingleChildScrollView(
-              reverse: false,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color.fromRGBO(116, 176, 243, 1),
-                        Color.fromRGBO(51, 132, 224, 1),
-                      ]),
-                ),
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: [
-                    // label(),
-                    nameInput(),
-                    phoneInput(),
-                    emailInput(),
-                    passInput(),
-                    confirmPassInput(),
-                    btnRegister(),
-                    signInText(),
-                  ],
-                ),
+      child: Scaffold(
+        body: SafeArea(
+          child: Form(
+            key: formKey,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromRGBO(116, 176, 243, 1),
+                      Color.fromRGBO(51, 132, 224, 1),
+                    ]),
+              ),
+              child: Column(
+                children: [
+                  label(),
+                  nameInput(),
+                  phoneInput(),
+                  emailInput(),
+                  passInput(),
+                  confirmPassInput(),
+                  btnRegister(),
+                  signInText(),
+                ],
               ),
             ),
           ),
@@ -71,9 +66,10 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget btnRegister() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(18, 28, 18, 0),
+      padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
       child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
+        minWidth: 360.w,
+        height: 50.h,
         onPressed: () {
           if (formKey.currentState.validate()) {}
 
@@ -109,10 +105,10 @@ class _SignUpPageState extends State<SignUpPage> {
         disabledColor: Colors.grey,
         disabledTextColor: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.all(14.0),
+          padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
           child: baseText(
               text: "REGISTER",
-              sizeText: 22,
+              sizeText: 22.sp,
               color: Colors.lightBlue,
               fontWeight: FontWeight.bold),
         ),
@@ -122,10 +118,10 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget label() {
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: EdgeInsets.only(top: 8.h),
       child: baseText(
         text: "Sign Up",
-        sizeText: 28,
+        sizeText: 28.sp,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -139,7 +135,6 @@ class _SignUpPageState extends State<SignUpPage> {
         text: "******",
         icon: Icon(Icons.vpn_key),
         validator: (val) {
-          print(val);
           return validate.passwordValidate(val);
         });
   }
@@ -192,31 +187,28 @@ class _SignUpPageState extends State<SignUpPage> {
           return 'Please enter some text!';
         } else if (!validate.emailValidate(val)) {
           return "Check your email!";
-        } else
-          return null;
+        }
+        return "";
       },
     );
   }
 
   Widget signInText() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          baseText(text: "Have an Ancount ? ", sizeText: 20),
-          baseText(
-              text: "Sign In",
-              sizeText: 20,
-              fontWeight: FontWeight.bold,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignInPage()),
-                );
-              })
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        baseText(text: "Have an Ancount ? ", sizeText: 20.sp),
+        baseText(
+            text: "Sign In",
+            sizeText: 20.sp,
+            fontWeight: FontWeight.bold,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SignInPage()),
+              );
+            })
+      ],
     );
   }
 
@@ -246,20 +238,17 @@ class _SignUpPageState extends State<SignUpPage> {
     String text,
     Icon icon,
     bool isShowText = false,
-    // String Function(String) validator
     FormFieldValidator<String> validator,
-    //  void Function(String) onSubmitted,
-    //  void Function() onTap,
   }) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
+      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 8),
+            padding: EdgeInsets.only(bottom: 4.h),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: baseText(text: labelText, sizeText: 18),
+              child: baseText(text: labelText, sizeText: 16.sp),
             ),
           ),
           TextFormField(
@@ -270,7 +259,7 @@ class _SignUpPageState extends State<SignUpPage> {
             validator: validator,
             decoration: InputDecoration(
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(10.r),
               ),
               filled: true,
               fillColor: Colors.blue.shade300,
