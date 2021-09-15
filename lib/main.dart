@@ -24,11 +24,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 690),
-      builder: () => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: SignUpPage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => Chat()),
+        Provider<AuthService>(
+            create: (_) => AuthService(FirebaseAuth.instance)),
+        StreamProvider(
+          create: (context) => context.read<AuthService>().authStateChanges,
+          initialData: null,
+        ),
+      ],
+      child: ScreenUtilInit(
+        designSize: const Size(360, 790),
+        builder: () => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: SignInPage(),
+        ),
       ),
     );
 

@@ -32,11 +32,11 @@ class _SignInPageState extends State<SignInPage> {
       ],
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        // backgroundColor: Colors.blue.shade600,
         body: SafeArea(
           child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            width: 360.w,
+            height: 790.h,
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -47,20 +47,40 @@ class _SignInPageState extends State<SignInPage> {
                 ],
               ),
             ),
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  label(),
-                  emailInput(),
-                  passInput(),
-                  forgotText(),
-                  checkbox(),
-                  btnLogin(),
-                  orText(),
-                  icon(),
-                  signUpText(),
-                ],
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    SizedBox(height: 20.h),
+                    baseText(
+                      text: "Sign In",
+                      sizeText: 28.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    emailInput(),
+                    passInput(),
+                    SizedBox(height: 12.h),
+                    forgotText(),
+                    checkbox(),
+                    btnLogin(),
+                    SizedBox(height: 16.h),
+                    baseText(
+                      text: "- OR - ",
+                      sizeText: 20.sp,
+                    ),
+                    SizedBox(height: 16.h),
+                    baseText(
+                      text: "Sign in with",
+                      sizeText: 18.sp,
+                    ),
+                    icon(),
+                    SizedBox(
+                      height: 55.h,
+                    ),
+                    signUpText(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -106,17 +126,6 @@ class _SignInPageState extends State<SignInPage> {
         ),
         baseText(text: "Remember me", sizeText: 20.sp)
       ],
-    );
-  }
-
-  Widget label() {
-    return Padding(
-      padding: EdgeInsets.only(top: 8.h),
-      child: baseText(
-        text: "Sign In",
-        sizeText: 28.sp,
-        fontWeight: FontWeight.bold,
-      ),
     );
   }
 
@@ -191,39 +200,18 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Widget forgotText() {
-    return Padding(
-      padding: EdgeInsets.only(right: 10.w),
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: baseText(
-          text: "Forgot Password",
-          sizeText: 18.sp,
-        ),
+    return Align(
+      alignment: Alignment.centerRight,
+      child: baseText(
+        text: "Forgot Password",
+        sizeText: 18.sp,
       ),
     );
   }
 
-  Widget orText() {
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.all(ScreenUtil().setHeight(8)),
-          child: baseText(
-            text: "- OR - ",
-            sizeText: 20.sp,
-          ),
-        ),
-        baseText(
-          text: "Sign in with",
-          sizeText: 18.sp,
-        ),
-      ],
-    );
-  }
-
   Widget icon() {
-    return Padding(
-      padding: EdgeInsets.all(ScreenUtil().setHeight(8)),
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 16.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -270,16 +258,16 @@ class _SignInPageState extends State<SignInPage> {
     String assetImage,
   }) {
     return Container(
-      margin: EdgeInsets.all(ScreenUtil().setHeight(8)),
-      padding: EdgeInsets.all(ScreenUtil().setHeight(8)),
+      margin: EdgeInsets.all(8.h),
+      padding: EdgeInsets.all(8.h),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.white,
       ),
       child: Image(
         image: AssetImage(assetImage),
-        width: ScreenUtil().setWidth(35),
-        height: ScreenUtil().setHeight(35),
+        width: 40.h,
+        height: 40.h,
       ),
     );
   }
@@ -290,48 +278,35 @@ class _SignInPageState extends State<SignInPage> {
     String text,
     Icon icon,
     bool isShowText = false,
-    // String Function(String) validator
     FormFieldValidator<String> validator,
-    //  void Function(String) onSubmitted,
-    //  void Function() onTap,
   }) {
-    return Padding(
-      padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 8.h),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: baseText(text: labelText, sizeText: 18.sp),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: 16.h),
+        baseText(text: labelText, sizeText: 16.sp),
+        SizedBox(height: 4.h),
+        TextFormField(
+          controller: controller,
+          obscureText: isShowText,
+          validator: validator,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.r),
+            ),
+            filled: true,
+            fillColor: Colors.blue.shade300,
+            prefixIcon: InkWell(
+              child: icon,
+            ),
+            hintText: "$text",
+            hintStyle: TextStyle(
+              fontWeight: FontWeight.w300,
+              color: Colors.white,
             ),
           ),
-          TextFormField(
-            // onFieldSubmitted: onSubmitted,
-
-            controller: controller,
-            obscureText: isShowText,
-            validator: validator,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              filled: true,
-              fillColor: Colors.blue.shade300,
-              prefixIcon: InkWell(
-                // onTap: onTap,
-
-                child: icon,
-              ),
-              hintText: "$text",
-              hintStyle: TextStyle(
-                fontWeight: FontWeight.w300,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
